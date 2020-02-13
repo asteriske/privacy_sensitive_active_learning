@@ -1,0 +1,52 @@
+# Inform the random draws made by sklearn both when drawing and writing data.
+seed: 1138
+
+# Global project logging settings
+log_level: DEBUG
+log_file: mnist_class.log 
+
+data:
+  # storage of the mnist_784 dataset so we need not redownload for each run
+  file: mnist.pkl
+  # log level within the DataStore object / process
+  log_level: DEBUG 
+  # of the 70,000 rows in mnist_784, how many are the training set
+  train_samples: 60000
+  # post-split data files, so we can join back to the feature ids and gauge performance
+  train_test_data_pkl: split_train_test.pkl
+
+model:
+  # log level within the model processes
+  log_level: DEBUG 
+
+  # How many times a given model is retrained as it approaches convergence
+  model_iterations: 50
+  # Number of "segments" drawn from the dataset when training begins
+  num_initial_draws: 5000
+  # quantiles used by ordinal classifier
+  n_ordinal_classes: 4
+  # number of rows in "segments" reinserted into the database
+  n_sample_reinsert: 50
+  # number of segments reinserted after a model fit
+  n_segments_reinsert: 10
+  # number of segments drawn from the top, or middle, or bottom of label range to produce a training set
+  n_top_bottom_values: 100
+  # parallel jobs within sklearn.SGDRegressor / SGDClassifier
+  regressor_jobs: 3
+  # verbosity within sklearn.SGDRegressor / SGDClassifier
+  regressor_verbosity: 0
+  # observations per "segment" when populating initial datastore
+  rows_per_draw: 50
+  # among predicted labels, sampled segments are drawn from the `top_n_reinsert` highest scored observations
+  top_n_reinsert: 100
+
+multi:
+  # data worker TTL needs to be long enough for the first generation of fitted models to run.
+  # there must be a more elegant solution but I didn't look for it.
+  data_worker_ttl: 250 
+  # how long a fitter worker will wait for work to do before quitting
+  fitter_worker_ttl: 45
+  # worker specific log level
+  log_level: DEBUG 
+  # number of worker processes to perform fits
+  n_worker: 10
