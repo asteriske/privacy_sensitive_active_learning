@@ -1,4 +1,5 @@
-This code produces an example of the classification method described in *my paper*. It performs an iterative classification algorithm, either using the ordinal or naive methods described in the paper.
+This code produces an example of the classification method described in *Who do you think you are?
+A privacy-sensitive method for targeting online audiences* by McCarthy, Williams *et al*. It performs an iterative classification algorithm, either using the ordinal or naive methods described in the paper.
 
 # Quickstart
 
